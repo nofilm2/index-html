@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passive Multi-Income Mobile Tracker Pro v1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #6B46C1 0%, #8B5CF6 40%, #B8860B 100%);
+            min-height: 100vh;
+            padding: 0;
+            color: white;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px 20px;
+            position: relative;
+        }
+
+        .butterfly-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
+
+        .company-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+        }
+
+        .butterfly-text {
+            font-size: 0.9em;
+            font-weight: 400;
+            margin-bottom: 20px;
+            opacity: 0.85;
+            font-style: italic;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, #6B46C1 0%, #9370DB 50%, #B8860B 100%);
+            margin: 0 20px 30px 20px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .hero-card::before {
+            content: '$';
+            position: absolute;
+            font-size: 15em;
+            font-weight: 900;
+            color: rgba(184, 134, 11, 0.4);
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .hero-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-card h2 {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+        }
+
+        .hero-card .version {
+            font-size: 1em;
+            font-weight: 400;
+            margin-bottom: 15px;
+            opacity: 0.9;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+        }
+
+        .hero-card p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            line-height: 1.4;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 0 20px;
+            margin-bottom: 25px;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, #B8860B 0%, #9370DB 60%, #8B5CF6 100%);
+            padding: 25px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 35px rgba(0,0,0,0.7);
+        }
+
+        .dashboard-card h3 {
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            opacity: 0.95;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            letter-spacing: 0.5px;
+        }
+
+        .dashboard-card .value {
+            font-size: 2.5em;
+            font-weight: 700;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 0 20px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            color: white;
+            border: none;
+            padding: 18px 20px;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.35);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .section-card {
+            background: linear-gradient(135deg, #B8860B 0%, #9370DB 60%, #8B5CF6 100%);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 0 20px 25px 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .section-card h2 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+        }
+
+        .platform-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .platform-name {
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .platform-amount {
+            font-size: 1.3em;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .tax-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .tax-row:last-child {
+            border-bottom: none;
+            padding-top: 18px;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .transaction-item {
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-source {
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .transaction-platform {
+            font-size: 0.9em;
+            opacity: 0.85;
+        }
+
+        .transaction-amount {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-right: 12px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #B8860B 0%, #9370DB 60%, #8B5CF6 100%);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .modal h2 {
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .close-btn {
+            background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+            margin-top: 15px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 15px;
+            opacity: 0.85;
+            font-size: 1em;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            opacity: 0.75;
+            font-size: 0.85em;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="company-name">Maya Digital Assets LLC</div>
+            <!-- Replace 'butterfly-80px.png' with your actual golden butterfly image filename -->
+            <img src="Maya Golden butterfly 80px.png" alt="Maya's Golden Butterfly" class="butterfly-logo">
+        </div>
+
+        <!-- Hero Card -->
+        <div class="hero-card">
+            <h2>Passive Multi-Income Mobile Tracker Pro</h2>
+            <div class="version">v1.0</div>
+            <p>Track, analyze, and watch<br>your revenue grow</p>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3>TOTAL REVENUE</h3>
+                <div class="value" id="totalRevenue">$0</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>INCOME SOURCES</h3>
+                <div class="value" id="incomeSources">0</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>THIS MONTH</h3>
+                <div class="value" id="thisMonth">$0</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>PLATFORMS</h3>
+                <div class="value" id="platformCount">0</div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+            <button class="add-btn" onclick="showAddIncomeModal()">+ Add Income</button>
+            <button class="export-btn" onclick="exportToCSV()">📊 Export to CSV</button>
+        </div>
+
+        <!-- Platform Breakdown -->
+        <div class="section-card">
+            <h2>Platform Breakdown</h2>
+            <div id="platformBreakdown">
+                <div class="empty-state">No platforms yet. Add income to see breakdown.</div>
+            </div>
+        </div>
+
+        <!-- Tax Summary -->
+        <div class="section-card">
+            <h2>Tax Summary</h2>
+            <div class="tax-row">
+                <span>Gross Income</span>
+                <span id="grossIncome">$0.00</span>
+            </div>
+            <div class="tax-row">
+                <span>Est. Tax (25%)</span>
+                <span id="estimatedTax">$0.00</span>
+            </div>
+            <div class="tax-row">
+                <span>Net Income</span>
+                <span id="netIncome">$0.00</span>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="section-card">
+            <h2>Recent Transactions</h2>
+            <div id="transactionList">
+                <div class="empty-state">No income yet. Click "Add Income" to start tracking.</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            © 2025 Maya Digital Assets LLC - All Rights Reserved
+        </div>
+    </div>
+
+    <!-- Add Income Modal -->
+    <div id="addIncomeModal" class="modal">
+        <div class="modal-content">
+            <h2>Add Income</h2>
+            <form id="incomeForm">
+                <div class="form-group">
+                    <label>Income Source</label>
+                    <input type="text" id="source" required placeholder="e.g., Product Sales">
+                </div>
+                <div class="form-group">
+                    <label>Platform</label>
+                    <select id="platform" required>
+                        <option value="">Select Platform</option>
+                        <option value="Shopify">Shopify</option>
+                        <option value="Etsy">Etsy</option>
+                        <option value="Amazon">Amazon</option>
+                        <option value="eBay">eBay</option>
+                        <option value="Gumroad">Gumroad</option>
+                        <option value="Custom">Custom</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount ($)</label>
+                    <input type="number" id="amount" step="0.01" required placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" class="add-btn">Save Income</button>
+                <button type="button" class="close-btn" onclick="closeModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Initialize data from localStorage
+        let incomeData = JSON.parse(localStorage.getItem('incomeData')) || [];
+
+        // Set today's date as default
+        document.getElementById('date').valueAsDate = new Date();
+
+        // Update dashboard on load
+        updateDashboard();
+
+        function showAddIncomeModal() {
+            document.getElementById('addIncomeModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('addIncomeModal').style.display = 'none';
+            document.getElementById('incomeForm').reset();
+            document.getElementById('date').valueAsDate = new Date();
+        }
+
+        document.getElementById('incomeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const income = {
+                id: Date.now(),
+                source: document.getElementById('source').value,
+                platform: document.getElementById('platform').value,
+                amount: parseFloat(document.getElementById('amount').value),
+                date: document.getElementById('date').value
+            };
+
+            incomeData.push(income);
+            localStorage.setItem('incomeData', JSON.stringify(incomeData));
+            
+            updateDashboard();
+            closeModal();
+        });
+
+        function updateDashboard() {
+            // Calculate totals
+            const totalRevenue = incomeData.reduce((sum, item) => sum + item.amount, 0);
+            const uniqueSources = new Set(incomeData.map(item => item.source)).size;
+            
+            // Calculate this month's income
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const thisMonthIncome = incomeData
+                .filter(item => {
+                    const itemDate = new Date(item.date);
+                    return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear;
+                })
+                .reduce((sum, item) => sum + item.amount, 0);
+
+            // Count unique platforms
+            const uniquePlatforms = new Set(incomeData.map(item => item.platform)).size;
+
+            // Update dashboard cards
+            document.getElementById('totalRevenue').textContent = '$' + totalRevenue.toFixed(0);
+            document.getElementById('incomeSources').textContent = uniqueSources;
+            document.getElementById('thisMonth').textContent = '$' + thisMonthIncome.toFixed(0);
+            document.getElementById('platformCount').textContent = uniquePlatforms;
+
+            // Update platform breakdown
+            updatePlatformBreakdown();
+
+            // Update tax summary
+            updateTaxSummary(totalRevenue);
+
+            // Update transaction list
+            updateTransactionList();
+        }
+
+        function updatePlatformBreakdown() {
+            const platformTotals = {};
+            incomeData.forEach(item => {
+                platformTotals[item.platform] = (platformTotals[item.platform] || 0) + item.amount;
+            });
+
+            const breakdownDiv = document.getElementById('platformBreakdown');
+            
+            if (Object.keys(platformTotals).length === 0) {
+                breakdownDiv.innerHTML = '<div class="empty-state">No platforms yet. Add income to see breakdown.</div>';
+                return;
+            }
+
+            breakdownDiv.innerHTML = Object.entries(platformTotals)
+                .sort((a, b) => b[1] - a[1])
+                .map(([platform, total]) => `
+                    <div class="platform-item">
+                        <span class="platform-name">${platform}</span>
+                        <span class="platform-amount">$${total.toFixed(2)}</span>
+                    </div>
+                `).join('');
+        }
+
+        function updateTaxSummary(totalRevenue) {
+            const taxRate = 0.25;
+            const estimatedTax = totalRevenue * taxRate;
+            const netIncome = totalRevenue - estimatedTax;
+
+            document.getElementById('grossIncome').textContent = '$' + totalRevenue.toFixed(2);
+            document.getElementById('estimatedTax').textContent = '$' + estimatedTax.toFixed(2);
+            document.getElementById('netIncome').textContent = '$' + netIncome.toFixed(2);
+        }
+
+        function updateTransactionList() {
+            const listDiv = document.getElementById('transactionList');
+            
+            if (incomeData.length === 0) {
+                listDiv.innerHTML = '<div class="empty-state">No income yet. Click "Add Income" to start tracking.</div>';
+                return;
+            }
+
+            const sortedData = [...incomeData].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            listDiv.innerHTML = sortedData.slice(0, 10).map(item => `
+                <div class="transaction-item">
+                    <div class="transaction-details">
+                        <div class="transaction-source">${item.source}</div>
+                        <div class="transaction-platform">${item.platform} • ${formatDate(item.date)}</div>
+                    </div>
+                    <span class="transaction-amount">$${item.amount.toFixed(2)}</span>
+                    <button class="delete-btn" onclick="deleteTransaction(${item.id})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteTransaction(id) {
+            if (confirm('Delete this transaction?')) {
+                incomeData = incomeData.filter(item => item.id !== id);
+                localStorage.setItem('incomeData', JSON.stringify(incomeData));
+                updateDashboard();
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function exportToCSV() {
+            if (incomeData.length === 0) {
+                alert('No data to export');
+                return;
+            }
+
+            const headers = ['Date', 'Source', 'Platform', 'Amount'];
+            const csv = [
+                headers.join(','),
+                ...incomeData.map(item => [
+                    item.date,
+                    `"${item.source}"`,
+                    item.platform,
+                    item.amount.toFixed(2)
+                ].join(','))
+            ].join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'maya-digital-assets-income-tracker-' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('addIncomeModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
